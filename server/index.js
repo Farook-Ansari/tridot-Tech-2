@@ -7,8 +7,9 @@ const app = express();
 app.use(express.json());
 const port = 5000;
 
+// CORS configuration to allow requests from Netlify
 app.use(cors({
-  origin: ["http://localhost:5173", ],
+  origin: ["http://localhost:5173", "https://tridot-task2.netlify.app"], // Add your Netlify domain here
   methods: ["GET", "POST", "PATCH", "DELETE"],
 }));
 
@@ -62,8 +63,12 @@ app.patch("/products/:id", (req, res) => {
   if (!name || !price || !category) {
     return res.status(400).json({ message: "All required fields are not provided" });
   }
+  
   let index = products.findIndex((product) => product.id === id);
   
+  if (index === -1) {
+    return res.status(404).json({ message: "Product not found" });
+  }
 
   products[index] = { id, name, price, oldPrice, category, isActive, description };
 
