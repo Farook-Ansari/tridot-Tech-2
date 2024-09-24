@@ -30,16 +30,19 @@ function App() {
 
 
 
-  const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure?");
-    if (confirm) {
-        await axios.delete(`https://tridot-tech-2-1.onrender.com/products/${id}`).then((res) => {
-            setProducts(res.data);
-            setFilteredProducts(res.data);
-        });
+const handleDelete = async (id) => {
+  const confirm = window.confirm("Are you sure?");
+  if (confirm) {
+    try {
+      await axios.delete(`https://tridot-tech-2-1.onrender.com/products/${id}`);
+      // Filter the deleted product from the state
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      setFilteredProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+    } catch (err) {
+      console.error("Error deleting product:", err);
     }
+  }
 };
-
 
   const handleAdd = () => {
     setNewProduct({

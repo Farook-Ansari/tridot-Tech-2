@@ -48,6 +48,8 @@ app.delete("/products/:id", (req, res) => {
   });
 });
 
+
+
 app.post("/products", (req, res) => {
   let { name, price, oldPrice, category, isActive, description } = req.body;
 
