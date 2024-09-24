@@ -9,9 +9,19 @@ const port = 5000;
 
 // CORS configuration to allow requests from Netlify
 app.use(cors({
-  origin: ["http://localhost:5173", "https://tridot-task2.netlify.app"], // Add your Netlify domain here
+  origin: [
+    "http://localhost:5173", // Local development
+    "https://tridot-task2.netlify.app", // Netlify production
+    "https://tri-task2.netlify.app" // Ensure this matches the actual URL
+  ],
   methods: ["GET", "POST", "PATCH", "DELETE"],
 }));
+
+// Middleware to log incoming requests
+app.use((req, res, next) => {
+  console.log(`${req.method} request for '${req.url}'`);
+  next();
+});
 
 app.listen(port, (err) => {
   if (err) {
