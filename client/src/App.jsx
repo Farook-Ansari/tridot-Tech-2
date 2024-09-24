@@ -17,11 +17,12 @@ function App() {
 
   // GET
   const getAllProducts = async () => {
-    await axios.get("http://localhost:5000/products").then((res) => {
-      setProducts(res.data);
-      setFilteredProducts(res.data);
+    await axios.get("https://tridot-tech-2-1.onrender.com/products").then((res) => {
+        setProducts(res.data);
+        setFilteredProducts(res.data);
     });
-  };
+};
+
 
   useEffect(() => {
     getAllProducts();
@@ -32,12 +33,13 @@ function App() {
   const handleDelete = async (id) => {
     const confirm = window.confirm("Are you sure?");
     if (confirm) {
-      await axios.delete(`http://localhost:5000/products/${id}`).then((res) => {
-        setProducts(res.data);
-        setFilteredProducts(res.data);
-      });
+        await axios.delete(`https://tridot-tech-2-1.onrender.com/products/${id}`).then((res) => {
+            setProducts(res.data);
+            setFilteredProducts(res.data);
+        });
     }
-  };
+};
+
 
   const handleAdd = () => {
     setNewProduct({
@@ -65,14 +67,15 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newProduct.id) {
-      await axios
-        .patch(`http://localhost:5000/products/${newProduct.id}`, newProduct)
-        .then((res) => console.log(res));
+        await axios
+            .patch(`https://tridot-tech-2-1.onrender.com/products/${newProduct.id}`, newProduct)
+            .then((res) => console.log(res));
     } else {
-      await axios.post(`http://localhost:5000/products/`, newProduct).then((res) => console.log(res));
+        await axios.post(`https://tridot-tech-2-1.onrender.com/products/`, newProduct).then((res) => console.log(res));
     }
     closeModule();
-  };
+};
+
 
   const handleUpdatedRecord = (product) => {
     setNewProduct(product);
